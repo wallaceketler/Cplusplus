@@ -61,8 +61,45 @@ class Lista{
             }
         }
 
+        int verificaTamanho(){
+            int tam = 0;
+
+            if(vazia()){
+                return 0;
+            }
+
+            Celula<T>* c = cabeca;
+
+            //só posso usar assim quando c for um ponteiro
+            while(c){
+                c = c->obterProx();
+                tam+=1;
+            }
+
+            return tam;
+        }
+
         void inserir_pos(T v, int pos){
 
+            Celula<T>* nova_celula = new Celula<T>(v);
+            
+
+
+            /*
+            int atual = 0;
+
+            Celula<T>* c = cabeca;
+            if(pos + 1 > this->verificaTamanho() || pos < 0){
+                std::cout<<"Posição inválida"<<std::endl;
+            }else{
+                Celula<T>* nova_celula = new Celula<T>(v);
+                while(atual != pos){
+                    c = c->obterProx();
+                    atual+=1;
+                }
+                
+            }
+            */
         }
 
         void remover(){

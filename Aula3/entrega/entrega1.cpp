@@ -6,14 +6,18 @@ int main(){
     Lista<std::string> l;
 
 
-    l.inserir("aa");
-    l.inserir("t");
-    l.inserir("asdas");
+    l.inserir("pos0");
+    l.inserir("pos1");
+    l.inserir("pos2");
+
+    std::cout<<"tamanho: "<< l.verificaTamanho()<<std::endl;
 
     l.mostrar();
 
     l.remover();
     l.remover();
+
+    std::cout<<"tamanho: "<<l.verificaTamanho()<<std::endl;
 
     l.mostrar();    
 
