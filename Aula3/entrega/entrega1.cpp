@@ -20,5 +20,11 @@ int main(){
     l.mostrar();
     cout<<l.verificaTamanho()<<endl;
 
+    l.remover_pos(2);
+
+    l.mostrar();
+    
+    cout<<l.verificaTamanho()<<endl;
+
     return 0;
 }

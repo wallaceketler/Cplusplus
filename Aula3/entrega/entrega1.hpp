@@ -4,12 +4,12 @@ using namespace std;
 
 template <typename T>
 class Celula{
-    public:
+    private:
         T conteudo;
         Celula<T> *prox;
 
-    //public:
-        //construtor
+    public:
+
         Celula<T>(T conteudo){
             this->conteudo = conteudo;
             this->prox = NULL;
@@ -118,6 +118,37 @@ class Lista{
             }
         }
 
+        void remover_pos(int pos){
+
+            if(pos < 0 || pos >= this->verificaTamanho() || vazia()){
+                cout<<"posição inválida"<<endl;
+            }else{
+
+                Celula<T> *atual = cabeca;
+
+                int cont = 0;
+
+                if(pos != 0){
+                    while(cont < pos - 1){
+                        atual = atual->obterProx();
+                        cont++;
+                    }
+                    
+                    delete atual->obterProx();
+                    atual->setProx(atual->obterProx()->obterProx());
+                    
+
+                }else{
+                    
+                    delete cabeca;
+                    cabeca = cabeca->obterProx();
+
+                }
+
+            }
+     
+        }
+
         void buscar(int pos){
 
             if(pos < 0 || pos >= this->verificaTamanho() || vazia()){
@@ -135,36 +166,15 @@ class Lista{
             }
         }
 
-        void remover_pos(int pos){
-
-            
-            if(pos < 0 || pos >= this->verificaTamanho() || vazia()){
-                cout<<"posição inválida"<<endl;
-            }else{
-
-                Celula<T> *atual = cabeca;
-                int cont = 0;
-
-                while(cont < pos){
-                    atual = atual->obterProx();
-                    cont++;
-                }
-
-            }
-        
-        }
-
-
-
         void mostrar(){
             Celula<T>* c = cabeca;
 
             if(vazia()){
-                std::cout<<"Lista vazia"<<std::endl;
+                cout<<"Lista vazia"<<endl;
             }else{
                 //enquanto houver próximo de c, continua
                 while(c){
-                    std::cout<<c->obterValor()<<std::endl;
+                    cout<<c->obterValor()<<endl;
                     c = c->obterProx();
                 }
             }
