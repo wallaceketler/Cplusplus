@@ -1,4 +1,5 @@
 #include "entrega1.hpp"
+using namespace std;
 
 int main(){
 
@@ -10,8 +11,14 @@ int main(){
     l.inserir("pos1");
     l.inserir("pos2");
 
-    std::cout<<"tamanho: "<< l.verificaTamanho()<<std::endl;
+    l.buscar(1);
 
+    //l.inserir_pos("inseriMeio", 1);
+
+    std::cout<<"tamanho: "<< l.verificaTamanho()<<std::endl;
+    cout<<endl;
+
+    cout<<"MOSTRANDO:"<<endl;
     l.mostrar();
 
     l.remover();

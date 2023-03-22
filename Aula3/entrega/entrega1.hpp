@@ -1,14 +1,14 @@
 #include <iostream>
 #include <string>
+using namespace std;
 
 template <typename T>
 class Celula{
-    private:
+    public:
         T conteudo;
         Celula<T> *prox;
 
-    public:
-
+    //public:
         //construtor
         Celula<T>(T conteudo){
             this->conteudo = conteudo;
@@ -82,24 +82,81 @@ class Lista{
         void inserir_pos(T v, int pos){
 
             Celula<T>* nova_celula = new Celula<T>(v);
+            Celula<T>* atual = cabeca;
+
+            int cont = 0;
             
-
-
-            /*
-            int atual = 0;
-
-            Celula<T>* c = cabeca;
-            if(pos + 1 > this->verificaTamanho() || pos < 0){
-                std::cout<<"Posição inválida"<<std::endl;
+            if(vazia()){
+                cabeca = nova_celula;
+                cauda = nova_celula;
             }else{
-                Celula<T>* nova_celula = new Celula<T>(v);
-                while(atual != pos){
-                    c = c->obterProx();
-                    atual+=1;
+                
+                //pega endereço que quero inserir
+                while(cont < pos){
+                    atual = atual->obterProx();
+ 
+                    cont++;  
                 }
                 
+                cout<< atual->conteudo <<endl;
+                cout<<"SEGUNDO WHILE"<<endl;
+                
+                cont = 0;
+                
+                //quero mudar o valor guardado nessa posição de memória
+                
+                while(atual){
+                    //cout<<"segundo while"<<endl;
+                    //cout<<cont<<endl;
+                    //cont++;
+
+                    cout<<"ATUAL: "<<atual->conteudo<<endl;
+                
+                    //-----------------------------------------
+                    //posição atual recebe nova celula
+                    atual->setProx(nova_celula);
+                    atual = nova_celula;
+                    
+
+                    //passando pra próxima posição
+                    atual = atual->obterProx();
+
+
+                    
+                }
+                
+                cout<<"sai do segundo while"<<endl;
             }
-            */
+        }
+
+        void buscar(int pos){
+
+            if(pos < 0 || pos >= this->verificaTamanho() || vazia()){
+                cout<<"Posição inválida"<<endl;
+            }else{
+                Celula<T>* atual = cabeca;
+                int cont = 0;
+
+                while(cont < pos){
+                    atual = atual->obterProx();
+                    cont++;
+                }
+
+                cout<<"Elemento da posição " << pos << ": "<< atual->obterValor() <<endl;
+            }
+
+        }
+
+        void remover_pos(int pos){
+
+            if(pos < 0 || pos >= this->verificaTamanho() || vazia()){
+                cout<<"posição inválida"<<endl;
+            }else{
+                Celula<T> *atual = cabeca;
+                
+            }
+            
+
         }
 
         void remover(){
@@ -143,7 +200,6 @@ class Lista{
                 }
             }
         }
-
 };
 
 
