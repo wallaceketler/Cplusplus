@@ -49,17 +49,6 @@ class Lista{
             return(cabeca == NULL);
         }
 
-        void inserir(T v){
-            Celula<T>* nova_celula = new Celula<T>(v);
-            
-            if(vazia()){
-                cabeca = nova_celula;
-                cauda = nova_celula;
-            }else{
-                cauda->setProx(nova_celula);
-                cauda = nova_celula;
-            }
-        }
 
         int verificaTamanho(){
             int tam = 0;
@@ -88,7 +77,6 @@ class Lista{
             
             if(pos < 0 || pos >= this->verificaTamanho()){
 
-                cout<<"Posição inválida, será inserido no fim"<<endl;
                 if(vazia()){
                     cabeca = nova_celula;
                     cauda = nova_celula;
