@@ -75,7 +75,7 @@ class Lista{
                 c = c->obterProx();
                 tam+=1;
             }
-
+            
             return tam;
         }
 
@@ -86,46 +86,35 @@ class Lista{
 
             int cont = 0;
             
-            if(vazia()){
-                cabeca = nova_celula;
-                cauda = nova_celula;
+            if(pos < 0 || pos >= this->verificaTamanho()){
+
+                cout<<"Posição inválida, será inserido no fim"<<endl;
+                if(vazia()){
+                    cabeca = nova_celula;
+                    cauda = nova_celula;
+                }else{
+                     Celula<T>* nova_celula = new Celula<T>(v);
+                     
+                     cauda->setProx(nova_celula);
+                     cauda = nova_celula;
+                }
+      
             }else{
-                
-                //pega endereço que quero inserir
-                while(cont < pos){
-                    atual = atual->obterProx();
- 
-                    cont++;  
-                }
-                
-                cout<< atual->conteudo <<endl;
-                cout<<"SEGUNDO WHILE"<<endl;
-                
-                cont = 0;
-                
-                //quero mudar o valor guardado nessa posição de memória
-                
-                while(atual){
-                    //cout<<"segundo while"<<endl;
-                    //cout<<cont<<endl;
-                    //cont++;
 
-                    cout<<"ATUAL: "<<atual->conteudo<<endl;
+                if(pos != 0){
+                    //pega endereço que quero inserir
+                    while(cont < pos -1){
+                        atual = atual->obterProx();
+                        cont++;  
+                    }
                 
-                    //-----------------------------------------
-                    //posição atual recebe nova celula
+                    nova_celula->setProx(atual->obterProx());
                     atual->setProx(nova_celula);
-                    atual = nova_celula;
-                    
-
-                    //passando pra próxima posição
-                    atual = atual->obterProx();
-
-
-                    
+                }else{ //insere no início caso pos == 0
+                    nova_celula->setProx(atual);
+                    cabeca = nova_celula;
                 }
-                
-                cout<<"sai do segundo while"<<endl;
+
             }
         }
 
@@ -144,48 +133,28 @@ class Lista{
 
                 cout<<"Elemento da posição " << pos << ": "<< atual->obterValor() <<endl;
             }
-
         }
 
         void remover_pos(int pos){
 
+            
             if(pos < 0 || pos >= this->verificaTamanho() || vazia()){
                 cout<<"posição inválida"<<endl;
             }else{
+
                 Celula<T> *atual = cabeca;
-                
-            }
-            
+                int cont = 0;
 
+                while(cont < pos){
+                    atual = atual->obterProx();
+                    cont++;
+                }
+
+            }
+        
         }
 
-        void remover(){
-            if(!vazia()){
-                if(cabeca->obterProx() == NULL){
-                    cabeca = NULL;
-                }
-                else if(cabeca->obterProx()->obterProx() == NULL){
-                    cabeca->setProx(NULL);
-                }
-                else{
 
-                    Celula<T>* ant_ant = cabeca;
-                    Celula<T>* ant = cabeca->obterProx();
-                    Celula<T>* corrente = cabeca->obterProx()->obterProx();
-
-                    while(corrente){
-                        Celula<T>* aux = ant;
-                        ant = corrente;
-                        ant_ant = aux;
-                        corrente = corrente->obterProx();
-                    }
-
-                    delete ant_ant->obterProx();
-                    ant_ant->setProx(NULL);
-                    cauda = ant_ant;
-                }
-            }
-        }
 
         void mostrar(){
             Celula<T>* c = cabeca;
