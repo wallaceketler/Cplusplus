@@ -17,7 +17,7 @@ int main(){
 
     cout<<"Inserindo no meio dos inseridos previamente"<<endl;
 
-    l.inserir_pos("INSERE NO MEIO", 1);
+    l.inserir_pos("posMeio", 1);
 
     l.mostrar();
 
@@ -25,7 +25,7 @@ int main(){
 
     cout<<"Removendo certa posição"<<endl;
 
-    l.remover_pos(3);
+    l.remover_pos(4);
 
 
     l.mostrar();

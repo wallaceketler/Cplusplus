@@ -113,6 +113,7 @@ class Lista{
             }else{
 
                 Celula<T> *atual = cabeca;
+                Celula<T> *aux_delete = nullptr;
 
                 int cont = 0;
 
@@ -121,18 +122,17 @@ class Lista{
                         atual = atual->obterProx();
                         cont++;
                     }
-                    
-                    delete atual->obterProx();
+                    aux_delete = atual->obterProx();
                     atual->setProx(atual->obterProx()->obterProx());
-                    
 
-                }else{
                     
-                    delete cabeca;
+                }else{
+
+                    aux_delete = cabeca;
                     cabeca = cabeca->obterProx();
 
                 }
-
+                delete aux_delete;
             }
      
         }
