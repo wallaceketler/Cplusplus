@@ -1,51 +1,62 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
-
+#include <cstring>
+#include <math.h>
+#include <iomanip>
 using namespace std;
 
 int main(int argc, char** argv){
 
-    time_t t = time(0);
+    time_t t = time(NULL);
 
-    int quantidade_gerada = 0;
-    double valor_minimo = 0;
-    double valor_maximo = 0;
+    int quantidade_gerada = 1;
+    int valor_minimo = 0;
+    int valor_maximo = 100;
     int casas_decimais = 0;
     int semente = t; 
-
-    /*
-        srand(100);
-        int r = rand()%100;
-        cout<<r<<endl;
-        return 0;
-    */
-
+    bool inteiro = false;
+    
+    //realiza leitura e tratamento dos parâmetros de execução
     for(int i = 0; i < argc; i++){
-        if(argv[i] == "-i"){
-            
+        if(strcmp(argv[i], "-i") == 0){
+            inteiro = true;
         }
         //para comparar, usar strcmp()
-        if(argv[i] == "-n"){
+        if(strcmp(argv[i], "-n") == 0){
             quantidade_gerada = atoi(argv[i+1]);
-            cout<<argv[i]<<endl;
-            cout<<quantidade_gerada<<endl;
         }
-        if(argv[i] == "-p"){
+        if(strcmp(argv[i],"-p") == 0){
             casas_decimais = atoi(argv[i+1]);
-            cout<<casas_decimais<<endl;
         }
-        if(argv[i] == "-r"){
+        if(strcmp(argv[i],"-r") == 0){
             valor_minimo = atoi(argv[i+1]);
             valor_maximo = atoi(argv[i+2]);
-            cout<<valor_minimo<<" "<<valor_maximo<<endl;
         }
-        if(argv[i] == "-s"){
+        if(strcmp(argv[i],"-s") == 0){
             semente = atoi(argv[i+1]);
-            cout<<semente<<endl;      
         }
     }
+    //realiza resultado
+    int mult_decimais = pow(10,casas_decimais);
+    int limite = ((valor_maximo-valor_minimo) * mult_decimais);
+    cout<<limite<<endl;
+
+    for(int i = 0; i < quantidade_gerada; i++){
+        srand(semente);
+        float r = rand()%(limite);
+        r = r/mult_decimais + valor_minimo;
+        if(inteiro){
+            r = int(r);
+        }
+        cout<<fixed<<setprecision(casas_decimais);
+        cout<<r<<endl;
+    }
+
+    //[X] Quantidade
+    //[X] Seed
+    //[X] Casas decimais
+    //[X] Apenas inteiros
+    //[X] Máximo e Mínimo
 }
 
-//I+R*(S-I) com I menor valor e S maior valor
