@@ -12,8 +12,8 @@ int main(int argc, char** argv){
 
     int quantidade_gerada = 1;
     int valor_minimo = 0;
-    int valor_maximo = 100;
-    int casas_decimais = 0;
+    int valor_maximo = 1;
+    int casas_decimais = 4;
     int semente = t; 
     bool inteiro = false;
     
@@ -42,8 +42,8 @@ int main(int argc, char** argv){
     int limite = ((valor_maximo-valor_minimo) * mult_decimais);
     cout<<limite<<endl;
 
+    srand(semente);
     for(int i = 0; i < quantidade_gerada; i++){
-        srand(semente);
         float r = rand()%(limite);
         r = r/mult_decimais + valor_minimo;
         if(inteiro){
