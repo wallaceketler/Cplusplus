@@ -40,7 +40,6 @@ int main(int argc, char** argv){
     //realiza resultado
     int mult_decimais = pow(10,casas_decimais);
     int limite = ((valor_maximo-valor_minimo) * mult_decimais);
-    cout<<limite<<endl;
 
     srand(semente);
     for(int i = 0; i < quantidade_gerada; i++){
