@@ -126,12 +126,6 @@ URL operator"" _url(const char* url_value, size_t len){
         it += 1;
     }
     aux = 0;
-    
-    cout<<"AQUI: "<<value[it]<<endl;
-    //if(value[it] != '\0')
-     //   temCaminho = true;
-   
- 
 
     //verifica caminho (opcional)
     if(temCaminho){
