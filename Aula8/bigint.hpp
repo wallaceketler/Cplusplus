@@ -45,6 +45,7 @@ class bigInt{
             //se maior que zero significa que len1 é maior
             if(difference > 0){
                 n2 = complete + n2;
+                cout<<n1<<endl;
                 cout<<n2<<endl;
                 for(int i = n1.size()-1; i >= 0; i--){
                     if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
@@ -59,6 +60,8 @@ class bigInt{
                 }    
             }else if(difference < 0){ //len2 é maior
                 n1 = complete + n1;
+                cout<<n1<<endl;
+                cout<<n2<<endl;
                 for(int i = n1.size()-1; i >= 0; i--){
                     if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
                         numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10)[0];
@@ -71,7 +74,10 @@ class bigInt{
                     
                 }   
             }else{
+                cout<<n1<<endl;
+                cout<<n2<<endl;
                 for(int i = n1.size()-1; i >= 0; i--){
+          
                     if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
                         numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10)[0];
                         leftOver = 1;
@@ -107,49 +113,84 @@ class bigInt{
                 complete+='0';
             }
 
-            //se maior que zero significa que len1 é maior
+            //primeiro número é maior
             if(difference > 0){
                 n2 = complete + n2;
-
+                cout<<n1<<endl;
+                cout<<n2<<endl;
                 for(int i = n1.size()-1; i >= 0; i--){
-                    if(){
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) - stoi(string(1,n2[i])))[0];
-                        numberReturn.number +=
+                    if(stoi(string(1,n1[i])) < stoi(string(1,n2[i]))){
+                        numberReturn.number += to_string(stoi(string(1,n1[i])) + 10 - stoi(string(1,n2[i])) - borrow)[0];
+                        borrow = 1;
                     }else{
                         
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) - stoi(string(1,n2[i])) + leftOver)[0];
-
+                        numberReturn.number += to_string(stoi(string(1,n1[i])) - stoi(string(1,n2[i])) - borrow)[0];
+                        borrow = 0;
                     }
                     
                 }    
             }else if(difference < 0){ //len2 é maior
-
+                n1 = complete + n1;
+                
+                cout<<n1<<endl;
+                cout<<n2<<endl;
                 for(int i = n1.size()-1; i >= 0; i--){
-                    if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10)[0];
-                        leftOver = 1;
+                    if(stoi(string(1,n2[i])) < stoi(string(1,n1[i]))){
+                        numberReturn.number += to_string(stoi(string(1,n2[i])) + 10 - stoi(string(1,n1[i])) - borrow )[0];
+                        borrow = 1;
                     }else{
                         
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) + leftOver)[0];
-                        leftOver = 0;
-                    }
-                    
-                }   
-            }else{
-                for(int i = n1.size()-1; i >= 0; i--){
-                    if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10)[0];
-                        leftOver = 1;
-                    }else{
-                        
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) + leftOver)[0];
-                        leftOver = 0;
+                        numberReturn.number += to_string(stoi(string(1,n2[i])) - stoi(string(1,n1[i])) - borrow)[0];
+                        borrow = 0;
                     }
                     
                 }
-                if(leftOver == 1){
-                    numberReturn.number += '1';
-                }   
+
+                numberReturn.number += '-';   
+            }else{
+
+                int maior = -1;
+                cout<<n1<<endl;
+                cout<<n2<<endl;
+                //verifica qual o maior valor, já que ambos tem mesmo tamanho
+                for(int i = 0; i < n1.size()-1; i++){
+                    if(n1[i]>n2[i]){
+                        maior = 1;
+                        break;
+                    }else if(n2[i]>n1[i]){
+                        maior = 2;
+                        break;
+                    }
+                }
+
+                
+                //caso em que primeiro numero é maior
+                if(maior == 1){
+                    for(int i = n1.size()-1; i >= 0; i--){
+                        if(stoi(string(1,n1[i])) < stoi(string(1,n2[i]))){
+                            numberReturn.number += to_string(stoi(string(1,n1[i])) + 10 - stoi(string(1,n2[i])) - borrow)[0];
+                            borrow =1;
+                        }else{
+                            
+                            numberReturn.number += to_string(stoi(string(1,n1[i])) - stoi(string(1,n2[i])) - borrow)[0];
+                            borrow = 0;
+                        
+                        }
+                    }
+                }else{  //caso em que segundo é maior
+                    for(int i = n1.size()-1; i >= 0; i--){
+                        if(stoi(string(1,n2[i])) < stoi(string(1,n1[i]))){
+                            numberReturn.number += to_string(stoi(string(1,n2[i])) + 10 - stoi(string(1,n1[i])) - borrow )[0];
+                            borrow =1;
+                        }else{
+                            
+                            numberReturn.number += to_string(stoi(string(1,n2[i])) - stoi(string(1,n1[i])) - borrow)[0];
+                            borrow = 0;
+                        }
+                    }
+                    numberReturn.number += '-';
+                }
+                
             }
 
             reverse(numberReturn.number.begin(), numberReturn.number.end());
@@ -157,7 +198,13 @@ class bigInt{
         }
 
         bigInt operator*(const bigInt& o){
-            bigInt numberReturn;
+
+            bigInt numberReturn = *this;
+            bigInt initial = *this;
+
+            for(int i = 0; i < stoi(o.number) - 1; i++){
+                numberReturn = numberReturn+initial;
+            }
 
             return numberReturn;
         }
