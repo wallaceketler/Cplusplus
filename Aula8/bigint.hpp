@@ -46,11 +46,10 @@ class bigInt{
             //se maior que zero significa que len1 é maior
             if(difference > 0){
                 n2 = complete + n2;
-                cout<<n1<<endl;
-                cout<<n2<<endl;
+
                 for(int i = n1.size()-1; i >= 0; i--){
-                    if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10)[0];
+                    if(stoi(string(1,n1[i]))  + leftOver + stoi(string(1,n2[i]))>=10){
+                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10 + leftOver)[0];
                         leftOver = 1;
                     }else{
                         
@@ -61,11 +60,10 @@ class bigInt{
                 }    
             }else if(difference < 0){ //len2 é maior
                 n1 = complete + n1;
-                cout<<n1<<endl;
-                cout<<n2<<endl;
+
                 for(int i = n1.size()-1; i >= 0; i--){
-                    if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10)[0];
+                    if(stoi(string(1,n1[i])) + leftOver + stoi(string(1,n2[i]))>=10){
+                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10 + leftOver)[0];
                         leftOver = 1;
                     }else{
                         
@@ -75,12 +73,11 @@ class bigInt{
                     
                 }   
             }else{
-                cout<<n1<<endl;
-                cout<<n2<<endl;
+
                 for(int i = n1.size()-1; i >= 0; i--){
           
-                    if(stoi(string(1,n1[i])) + stoi(string(1,n2[i]))>=10){
-                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10)[0];
+                    if(stoi(string(1,n1[i])) + leftOver + stoi(string(1,n2[i]))>=10){
+                        numberReturn.number += to_string(stoi(string(1,n1[i])) + stoi(string(1,n2[i])) - 10 + leftOver)[0];
                         leftOver = 1;
                     }else{
                         
@@ -214,9 +211,7 @@ class bigInt{
                 }
                 else{
                     break;
-                }
-                
-                
+                }   
             }
             if(negative){
                 numberReturn.number.erase(1,zeros);
@@ -230,11 +225,20 @@ class bigInt{
 
         bigInt operator*(const bigInt& o){
 
+            string oValue = o.number;
+            bigInt newO;
+            newO.number = oValue;
             bigInt numberReturn = *this;
             bigInt initial = *this;
-
-            for(int i = 0; i < stoi(o.number) - 1; i++){
+            bigInt one;
+            one.number = '1';
+            regex values("[1-9]|[1-9][0-9]*|0[1-9]+");
+            newO.number[newO.getNumber().size()-1] = to_string(stoi(string(1,newO.getNumber()[newO.getNumber().size()-1]))-1)[0];
+            cout<<stoi(string(1,newO.getNumber()[newO.getNumber().size()-1]))-1<<endl;
+            cout<<newO.getNumber()<<endl;
+            while(regex_match(newO.number,values)){
                 numberReturn = numberReturn+initial;
+                newO = newO-one;
             }
 
             return numberReturn;
@@ -257,9 +261,6 @@ class bigInt{
             if(this->getNumber()[0] == '-'){
                 divisions--;
             }
-
-         
-
   
             numberReturn.number = to_string(divisions);
             return numberReturn;
