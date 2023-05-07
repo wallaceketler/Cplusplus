@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <regex>
 using namespace std;
 
 class bigInt{
@@ -116,10 +117,8 @@ class bigInt{
             //primeiro número é maior
             if(difference > 0){
                 n2 = complete + n2;
-                cout<<n1<<endl;
-                cout<<n2<<endl;
                 for(int i = n1.size()-1; i >= 0; i--){
-                    if(stoi(string(1,n1[i])) < stoi(string(1,n2[i]))){
+                    if(((stoi(string(1,n1[i])) - borrow) < (stoi(string(1,n2[i]))))){
                         numberReturn.number += to_string(stoi(string(1,n1[i])) + 10 - stoi(string(1,n2[i])) - borrow)[0];
                         borrow = 1;
                     }else{
@@ -132,10 +131,8 @@ class bigInt{
             }else if(difference < 0){ //len2 é maior
                 n1 = complete + n1;
                 
-                cout<<n1<<endl;
-                cout<<n2<<endl;
                 for(int i = n1.size()-1; i >= 0; i--){
-                    if(stoi(string(1,n2[i])) < stoi(string(1,n1[i]))){
+                    if(stoi(string(1,n2[i])) - borrow < stoi(string(1,n1[i]))){
                         numberReturn.number += to_string(stoi(string(1,n2[i])) + 10 - stoi(string(1,n1[i])) - borrow )[0];
                         borrow = 1;
                     }else{
@@ -150,26 +147,27 @@ class bigInt{
             }else{
 
                 int maior = -1;
-                cout<<n1<<endl;
-                cout<<n2<<endl;
+
                 //verifica qual o maior valor, já que ambos tem mesmo tamanho
-                for(int i = 0; i < n1.size()-1; i++){
-                    if(n1[i]>n2[i]){
+                for(int i = 0; i < n1.size(); i++){
+                    if(stoi(string(1,n1[i]))>stoi(string(1,n2[i]))){
                         maior = 1;
                         break;
-                    }else if(n2[i]>n1[i]){
+                    }else if(stoi(string(1,n2[i]))>stoi(string(1,n1[i]))){
                         maior = 2;
                         break;
+                    }else{
+                        continue;
                     }
                 }
 
-                
                 //caso em que primeiro numero é maior
                 if(maior == 1){
+                    cout<<"CAI AQUI"<<endl;
                     for(int i = n1.size()-1; i >= 0; i--){
-                        if(stoi(string(1,n1[i])) < stoi(string(1,n2[i]))){
+                        if(stoi(string(1,n1[i])) - borrow < stoi(string(1,n2[i]))){
                             numberReturn.number += to_string(stoi(string(1,n1[i])) + 10 - stoi(string(1,n2[i])) - borrow)[0];
-                            borrow =1;
+                            borrow = 1;
                         }else{
                             
                             numberReturn.number += to_string(stoi(string(1,n1[i])) - stoi(string(1,n2[i])) - borrow)[0];
@@ -177,11 +175,12 @@ class bigInt{
                         
                         }
                     }
-                }else{  //caso em que segundo é maior
+                }else if(maior == 2){  //caso em que segundo é maior
+                    cout<<"CAI ALI"<<endl;
                     for(int i = n1.size()-1; i >= 0; i--){
-                        if(stoi(string(1,n2[i])) < stoi(string(1,n1[i]))){
+                        if(stoi(string(1,n2[i])) - borrow < stoi(string(1,n1[i]))){
                             numberReturn.number += to_string(stoi(string(1,n2[i])) + 10 - stoi(string(1,n1[i])) - borrow )[0];
-                            borrow =1;
+                            borrow = 1;
                         }else{
                             
                             numberReturn.number += to_string(stoi(string(1,n2[i])) - stoi(string(1,n1[i])) - borrow)[0];
@@ -189,11 +188,43 @@ class bigInt{
                         }
                     }
                     numberReturn.number += '-';
+                }else{ //se tudo for igual
+                    numberReturn.number = '0';
                 }
                 
             }
 
             reverse(numberReturn.number.begin(), numberReturn.number.end());
+            
+            //retira zero a esquerda
+            int zeros = 0;
+            bool negative = false;
+            if(numberReturn.getNumber()[0] == '-'){
+                negative = true;
+            }
+            for(int i = 0; i < numberReturn.number.size(); i++){
+
+                
+                if(numberReturn.getNumber()[i] == '0'){
+
+                    zeros++;
+
+                }else if(numberReturn.getNumber()[i] == '-'){
+                    continue;
+                }
+                else{
+                    break;
+                }
+                
+                
+            }
+            if(negative){
+                numberReturn.number.erase(1,zeros);
+
+            }else{
+                numberReturn.number.erase(0,zeros);
+            }
+            
             return numberReturn;
         }
 
@@ -210,8 +241,27 @@ class bigInt{
         }
 
         bigInt operator/(const bigInt& o){
-            bigInt numberReturn;
 
+            bigInt numberReturn;
+            int divisions = 0;
+            regex values("[1-9]|[1-9][0-9]*|0[1-9]+");
+            
+
+            while(regex_match(this->getNumber(),values) || this->getNumber()[0] != '-'){
+                
+                *this = *this-o;
+                cout<<this->getNumber()<<endl;
+                
+                divisions++;
+            }
+            if(this->getNumber()[0] == '-'){
+                divisions--;
+            }
+
+         
+
+  
+            numberReturn.number = to_string(divisions);
             return numberReturn;
         }
 
