@@ -160,7 +160,7 @@ class bigInt{
 
                 //caso em que primeiro numero é maior
                 if(maior == 1){
-                    cout<<"CAI AQUI"<<endl;
+  
                     for(int i = n1.size()-1; i >= 0; i--){
                         if(stoi(string(1,n1[i])) - borrow < stoi(string(1,n2[i]))){
                             numberReturn.number += to_string(stoi(string(1,n1[i])) + 10 - stoi(string(1,n2[i])) - borrow)[0];
@@ -173,7 +173,7 @@ class bigInt{
                         }
                     }
                 }else if(maior == 2){  //caso em que segundo é maior
-                    cout<<"CAI ALI"<<endl;
+
                     for(int i = n1.size()-1; i >= 0; i--){
                         if(stoi(string(1,n2[i])) - borrow < stoi(string(1,n1[i]))){
                             numberReturn.number += to_string(stoi(string(1,n2[i])) + 10 - stoi(string(1,n1[i])) - borrow )[0];
@@ -234,8 +234,7 @@ class bigInt{
             one.number = '1';
             regex values("[1-9]|[1-9][0-9]*|0[1-9]+");
             newO.number[newO.getNumber().size()-1] = to_string(stoi(string(1,newO.getNumber()[newO.getNumber().size()-1]))-1)[0];
-            cout<<stoi(string(1,newO.getNumber()[newO.getNumber().size()-1]))-1<<endl;
-            cout<<newO.getNumber()<<endl;
+
             while(regex_match(newO.number,values)){
                 numberReturn = numberReturn+initial;
                 newO = newO-one;
@@ -254,7 +253,6 @@ class bigInt{
             while(regex_match(this->getNumber(),values) || this->getNumber()[0] != '-'){
                 
                 *this = *this-o;
-                cout<<this->getNumber()<<endl;
                 
                 divisions++;
             }
