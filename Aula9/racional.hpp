@@ -23,7 +23,7 @@ class Racional{
     }
 
     //construtor de transferência
-    Racional(){};
+    //Racional(){};
 
     ~Racional(){};
 
@@ -35,11 +35,11 @@ class Racional{
         return this->den;
     }
 
-    int numerador(int num){
+    void numerador(int num){
         this->num = num;
     }
 
-    int denominador(int den){
+    void denominador(int den){
         this->den = den;
     }
 
@@ -47,33 +47,208 @@ class Racional{
         return this->num/this->den;
     }
 
-    Racional const operator<(const Racional& r){}
+    bool const operator<(const Racional& r){
 
-    Racional const operator<=(const Racional& r){}
+        Racional x = r;        
 
-    Racional const operator>(const Racional& r){}
+        double n1 = this->valor();
+        double n2 = x.valor();
 
-    Racional const operator>=(const Racional& r){}
+        if(n1<n2){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-    Racional const operator==(const Racional& r){}
+    bool const operator<=(const Racional& r){
 
-    Racional operator+(const Racional& r){}
+        Racional x = r;        
 
-    Racional operator-(const Racional& r){}
+        double n1 = this->valor();
+        double n2 = x.valor();
 
-    Racional operator/(const Racional& r){}
+        if(n1<=n2){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
 
-    Racional operator+=(const Racional& r){}
+    bool const operator>(const Racional& r){
 
-    Racional operator-=(const Racional& r){}
+        Racional x = r;        
 
-    Racional operator*=(const Racional& r){}
+        double n1 = this->valor();
+        double n2 = x.valor();
 
-    Racional operator/=(const Racional& r){}
+        if(n1>n2){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    bool const operator>=(const Racional& r){
+
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+
+        if(n1>=n2){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    bool const operator==(const Racional& r){
+
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+
+        if(n1==n2){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    Racional operator+(const Racional& r){
+        
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+        double resultado = n1+n2;
+
+        x.numerador(resultado/100);
+        x.denominador(100);
+
+        return x; 
+
+    }
+
+    Racional operator-(const Racional& r){
+
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+        double resultado = n1-n2;
+
+        x.numerador(resultado/100);
+        x.denominador(100);
+
+        return x; 
+
+    }
+
+    Racional operator/(const Racional& r){
+
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+        double resultado = n1/n2;
+
+        x.numerador(resultado/100);
+        x.denominador(100);
+
+        return x; 
+
+    }
+
+    Racional operator+=(const Racional& r){
+
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+        double resultado = n1+n2;
+
+        x.numerador(resultado/100);
+        x.denominador(100);
+
+        return x; 
+
+    }
+
+    Racional operator-=(const Racional& r){
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+        double resultado = n1-n2;
+
+        x.numerador(resultado/100);
+        x.denominador(100);
+
+        return x; 
+    }
+
+    Racional operator*=(const Racional& r){
+
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+        double resultado = n1*n2;
+
+        x.numerador(resultado/100);
+        x.denominador(100);
+
+        return x; 
+
+    }
+
+    Racional operator/=(const Racional& r){
+
+        Racional x = r;        
+
+        double n1 = this->valor();
+        double n2 = x.valor();
+        double resultado = n1/n2;
+
+        x.numerador(resultado/100);
+        x.denominador(100);
+
+        return x; 
+
+    }
     
-    Racional operator++(int){}
+    Racional operator++(int){
 
-    Racional operator--(int){}
+        Racional r;
+        r.numerador(this->num+den);
+        r.denominador(this->den+den);
 
+        return r; 
+    }
+
+    Racional operator--(int){
+
+        Racional r;
+        r.numerador(this->num-den);
+        r.denominador(this->den-den);
+
+        return r;
+
+    }
+
+    Racional& operator=(const Racional& o){
+        if(this != &o){
+            this->num = o.num;
+            this->den = o.den;
+        }
+        return *this;
+    }
 
 };
