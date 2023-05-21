@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 class Racional{
     
     private:
@@ -44,7 +47,7 @@ class Racional{
     }
 
     double valor(){
-        return this->num/this->den;
+        return (double)this->num/this->den;
     }
 
     bool const operator<(const Racional& r){
@@ -129,8 +132,8 @@ class Racional{
         double n2 = x.valor();
         double resultado = n1+n2;
 
-        x.numerador(resultado/100);
-        x.denominador(100);
+        x.numerador(resultado*1000);
+        x.denominador(1000);
 
         return x; 
 
@@ -144,8 +147,8 @@ class Racional{
         double n2 = x.valor();
         double resultado = n1-n2;
 
-        x.numerador(resultado/100);
-        x.denominador(100);
+        x.numerador(resultado*1000);
+        x.denominador(1000);
 
         return x; 
 
@@ -174,9 +177,10 @@ class Racional{
         double n2 = x.valor();
         double resultado = n1+n2;
 
-        x.numerador(resultado/100);
-        x.denominador(100);
-
+        x.numerador(resultado*1000);
+        x.denominador(1000);
+        
+        *this = x;
         return x; 
 
     }
@@ -188,8 +192,10 @@ class Racional{
         double n2 = x.valor();
         double resultado = n1-n2;
 
-        x.numerador(resultado/100);
-        x.denominador(100);
+        x.numerador(resultado*1000);
+        x.denominador(1000);
+
+        *this = x;
 
         return x; 
     }
@@ -202,8 +208,10 @@ class Racional{
         double n2 = x.valor();
         double resultado = n1*n2;
 
-        x.numerador(resultado/100);
-        x.denominador(100);
+        x.numerador(resultado*1000);
+        x.denominador(1000);
+
+        *this = x;
 
         return x; 
 
@@ -217,8 +225,10 @@ class Racional{
         double n2 = x.valor();
         double resultado = n1/n2;
 
-        x.numerador(resultado/100);
-        x.denominador(100);
+        x.numerador(resultado*1000);
+        x.denominador(1000);
+
+        *this = x;
 
         return x; 
 
@@ -230,6 +240,8 @@ class Racional{
         r.numerador(this->num+den);
         r.denominador(this->den+den);
 
+        *this = r;
+
         return r; 
     }
 
@@ -238,6 +250,8 @@ class Racional{
         Racional r;
         r.numerador(this->num-den);
         r.denominador(this->den-den);
+
+        *this = r;
 
         return r;
 
