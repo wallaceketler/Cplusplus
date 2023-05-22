@@ -17,7 +17,7 @@ class Racional{
     };
 
     //construtor com parâmetros
-    Racional(int num, int den){
+    Racional(int num, int den){     
         this->num = num;
         this->den = den;
     };
@@ -29,7 +29,14 @@ class Racional{
     }
 
     //construtor de transferência
-    Racional(Racional &&other){};
+    
+    Racional(Racional &&other){
+        this->num = other.num;
+        this->den = other.den;
+        other.num = 0;
+        other.den = 0;
+    };
+    
 
     ~Racional(){};
 
@@ -259,8 +266,20 @@ class Racional{
         return r;
 
     }
+    
+    Racional operator-(){
+        this->num = -this->num;
+        return *this;
+    }
+    
 
-    Racional& operator=(Racional&& other){}
+    Racional& operator=(Racional&& other){
+        if(this != &other){
+            this->num = other.num;
+            this->den = other.den;
+        }
+        return *this;
+    }
 
     Racional& operator=(const Racional& o){
         if(this != &o){
